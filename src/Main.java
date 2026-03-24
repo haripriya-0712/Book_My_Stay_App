@@ -1,36 +1,48 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-class Booking {
-    int roomNumber;
-    String customerName;
+class RoomInventory {
 
-    Booking(int roomNumber, String customerName) {
-        this.roomNumber = roomNumber;
-        this.customerName = customerName;
+    private Map<String, Integer> inventory;
+
+    public RoomInventory() {
+        inventory = new HashMap<>();
+        inventory.put("Single Room", 5);
+        inventory.put("Double Room", 3);
+        inventory.put("Suite Room", 2);
+    }
+
+    public int getAvailability(String roomType) {
+        return inventory.getOrDefault(roomType, 0);
+    }
+
+    public void updateAvailability(String roomType, int count) {
+        inventory.put(roomType, count);
+    }
+
+    public void displayInventory() {
+        System.out.println("Current Room Inventory:");
+        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
     }
 }
 
-public class Main {
+public class UseCase3InventorySetup {
+
     public static void main(String[] args) {
 
-        Queue<Booking> queue = new LinkedList<>();
-        Set<Integer> bookedRooms = new HashSet<>();
+        RoomInventory inventory = new RoomInventory();
 
-        // Add bookings
-        if (!bookedRooms.contains(101)) {
-            queue.add(new Booking(101, "Alice"));
-            bookedRooms.add(101);
-        }
+        inventory.displayInventory();
 
-        if (!bookedRooms.contains(102)) {
-            queue.add(new Booking(102, "Bob"));
-            bookedRooms.add(102);
-        }
+        System.out.println("\nChecking availability:");
+        System.out.println("Single Room Available: " + inventory.getAvailability("Single Room"));
 
-        // Process bookings (FIFO)
-        while (!queue.isEmpty()) {
-            Booking b = queue.poll();
-            System.out.println("Room " + b.roomNumber + " booked by " + b.customerName);
-        }
+        System.out.println("\nUpdating availability...");
+        inventory.updateAvailability("Single Room", 4);
+
+        System.out.println("\nUpdated Inventory:");
+        inventory.displayInventory();
     }
 }
