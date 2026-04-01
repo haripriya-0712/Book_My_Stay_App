@@ -1,24 +1,16 @@
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TrainConsistUC4 {
+public class TrainConsistUC6 {
     public static void main(String[] args) {
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 78);
+        bogieCapacity.put("First Class", 24);
+        System.out.println("Bogie Capacity Details:");
 
-        LinkedList<String> train = new LinkedList<>();
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("AC");
-        train.add("Cargo");
-        train.add("Guard");
-
-        System.out.println("Initial Train Consist:");
-        System.out.println(train);
-        train.add(2, "Pantry");
-
-        System.out.println("\nAfter adding Pantry at position 2:");
-        System.out.println(train);
-        train.removeFirst();
-        train.removeLast();
-        System.out.println("\nFinal Train Consist:");
-        System.out.println(train);
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
