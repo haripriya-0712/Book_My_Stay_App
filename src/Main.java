@@ -1,16 +1,38 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class TrainConsistUC6 {
+class GoodsBogie {
+    String type;
+    String cargo;
+
+    GoodsBogie(String type, String cargo) {
+        this.type = type;
+        this.cargo = cargo;
+    }
+
+    public String toString() {
+        return type + " -> " + cargo;
+    }
+}
+
+public class TrainConsistUC12 {
     public static void main(String[] args) {
-        HashMap<String, Integer> bogieCapacity = new HashMap<>();
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 78);
-        bogieCapacity.put("First Class", 24);
-        System.out.println("Bogie Capacity Details:");
+        List<GoodsBogie> bogies = new ArrayList<>();
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie("Open", "Coal"));
+        bogies.add(new GoodsBogie("Box", "Grain"));
 
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        System.out.println("Goods Bogies:");
+        bogies.forEach(System.out::println);
+        boolean isSafe = bogies.stream()
+                .allMatch(b ->
+                        !b.type.equals("Cylindrical") ||
+                                b.cargo.equals("Petroleum")
+                );
+        System.out.println("\nSafety Compliance Status:");
+        if (isSafe) {
+            System.out.println("Train is SAFE for operation");
+        } else {
+            System.out.println("Train is UNSAFE - Invalid cargo detected");
         }
     }
 }
