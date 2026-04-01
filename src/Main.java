@@ -1,24 +1,32 @@
-import java.util.LinkedList;
+import java.util.*;
 
-public class TrainConsistUC4 {
+class Bogie {
+    String name;
+    int capacity;
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+    public String toString() {
+        return name + " -> " + capacity;
+    }
+}
+public class TrainConsistUC7 {
     public static void main(String[] args) {
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        LinkedList<String> train = new LinkedList<>();
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("AC");
-        train.add("Cargo");
-        train.add("Guard");
+        System.out.println("Before Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(train);
-        train.add(2, "Pantry");
-
-        System.out.println("\nAfter adding Pantry at position 2:");
-        System.out.println(train);
-        train.removeFirst();
-        train.removeLast();
-        System.out.println("\nFinal Train Consist:");
-        System.out.println(train);
+        System.out.println("\nAfter Sorting (Ascending Capacity):");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
     }
 }
